@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery - Sliders</title>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<style>
+		*{
+			padding: 0px;
+			margin: 0px;
+		}
+		.contenedor {
+			/*background-color: orange;*/
+			width: 400px;
+			margin: auto;
+			position: relative;
+			overflow: hidden;
+		}
+		.galeria ul {
+			display: flex;
+			list-style: none;
+			margin-left: -400px;
+		}
+		.galeria img {
+			width: 400px;
+		}
+		.control {
+			position: absolute;
+			top: 40%;
+			width: 50px;
+			height: 50px;
+			background-color: rgba(0,0,0,.5);
+			color: white;
+			font-size: 3rem;
+			text-align: center;
+			cursor: pointer;
+			user-select: none;
+		}
+		.control:hover {
+			background-color: black;
+			transition: 1s;
+		}
+		.siguiente {
+			right: 0;
+		}
+	</style>
+</head>
+<body>
+<section class="galeria">
+	<h1>Galería de <span>imágenes</span></h1>
+	<div class="contenedor">
+		<ul>
+			<li><img src="imagen1.jpg"></li>
+			<li><img src="imagen2.jpg"></li>
+			<li><img src="imagen3.jpg"></li>
+			<li><img src="imagen4.jpg"></li>
+			<li><img src="imagen5.jpg"></li>
+			<li><img src="imagen6.jpg"></li>
+			<li><img src="imagen7.jpg"></li>
+			<li><img src="imagen8.jpg"></li>
+		</ul>
+		<div class="control siguiente">&gt;</div>
+		<div class="control anterior">&lt;</div>
+	</div>
+</section>
+<script>
+	$('li:last').insertBefore('li:first');
+	// $('ul').css('margin-left','-400px');
+	
+
+	function siguiente(){
+		$('ul').animate({
+			marginLeft: '-800px'
+		},1000, function(){
+			$('li:first').insertAfter('li:last');
+			$('ul').css('margin-left','-400px' );
+		});
+	}
+
+
+	$('.siguiente').click(siguiente);
+
+
+	$('.anterior').click(function(){
+		$('ul').animate({
+			marginLeft: '0'
+		},1000, function(){
+			$('li:last').insertBefore('li:first');
+			$('ul').css('margin-left','-400px' );
+		});
+	});
+
+
+	let auto =setInterval(siguiente, 5000);
+	
+	$('.contenedor').hover(function(){
+		clearInterval(auto);
+	}, function(){
+		auto =setInterval(siguiente, 5000);
+	});
+</script>
+</body>
+</html>
